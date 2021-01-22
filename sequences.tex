@@ -1,0 +1,1073 @@
+%%% -*-LaTeX-*-
+%%% sequences_new.tex.orig
+%%% Prettyprinted by texpretty lex version 0.02 [21-May-2001]
+%%% on Thu Jan 21 08:57:08 2021
+%%% for Steven R. Dunbar (sdunbar@family-desktop)
+
+\documentclass[12pt]{article}
+
+\input{../../../../etc/macros}
+\input{../../../../etc/mzlatex_macros}
+%% \input{../../../../etc/pdf_macros}
+
+\bibliographystyle{plain}
+
+\begin{document}
+
+\myheader \mytitle
+
+\hr
+
+\sectiontitle{Stirling's Formula from Simple Functions, Sequences and
+Series}
+
+\hr
+
+\usefirefox
+
+\hr
+
+\visual{Rating}{../../../../CommonInformation/Lessons/rating.png}
+\section*{Rating} %one of
+% Everyone: contains no mathematics.
+% Student: contains scenes of mild algebra or calculus that may require guidance.
+% Mathematically Mature: may contain mathematics beyond calculus with proofs.
+Mathematicians Only:  prolonged scenes of intense rigor.
+
+\hr
+
+\visual{Section Starter Question}{../../../../CommonInformation/Lessons/question_mark.png}
+\section*{Section Starter Question} What is the geometric summation
+formula?  How can you use the geometric sum formula to derive the series
+expansion for \( \log( 1 + x) \)\,?  What do you need to know about the
+geometric sum formula to justify its use to derive the series expansion
+for \( \log( 1 + x) \)\,?
+
+\hr
+
+\visual{Key Concepts}{../../../../CommonInformation/Lessons/keyconcepts.png}
+\section*{Key Concepts}
+
+\begin{enumerate}
+    \item
+        \defn{Stirling's Formula}, also known as Stirling's Approximation,
+        is the asymptotic relation
+        \[
+            n!  \asympt \sqrt{2 \PI} n^{n+1/2} \EulerE^{-n}\,.
+        \]
+    \item
+        The formula is useful in estimating large factorial values, but
+        its main mathematical value is in limits involving factorials.
+    \item
+        An improved inequality version of Stirling's Formula is
+        \[
+            \sqrt{2 \PI} n^{n+1/2} \EulerE^{-n + 1/(12n+1)} < n!  <
+            \sqrt{2 \PI} n^{n+1/2} \EulerE^{-n + 1/(12n)}\,.
+        \]
+    \item
+        Some related inequalities and asymptotics for binomial
+        coefficients are
+        \[
+            \left( \frac{n}{k} \right)^k \le \binom{n}{k} \le \left(
+            \frac{\EulerE n}{k} \right)^k
+        \] and
+        \[
+            \binom{n}{k} \asympt \left(\frac{n^k}{k!} \right)
+        \] if \( k = o(n^{1/2}) \) as \( n \to \infty \).
+\end{enumerate}
+
+\hr
+
+\visual{Vocabulary}{../../../../CommonInformation/Lessons/vocabulary.png}
+\section*{Vocabulary}
+\begin{enumerate}
+    \item
+        \defn{Stirling's Formula}, also known as Stirling's Approximation,
+        is the asymptotic relation
+        \[
+            n!  \asympt \sqrt{2 \PI} n^{n+1/2} \EulerE^{-n}\,.
+        \]
+    \item
+        The \defn{double factorial} notation is \( n!!  = n \cdot (n-2)
+        \cdots 4 \cdot 2 \) if \( n \) is even, and \( n!!  = n \cdot (n-2)
+        \cdots 3 \cdot 1 \) if \( n \) is odd.
+\end{enumerate}
+
+\hr
+
+\visual{Mathematical Ideas}{../../../../CommonInformation/Lessons/mathematicalideas.png}
+\section*{Mathematical Ideas}
+
+Following usual mathematical conventions in subjects beyond calculus,
+all logarithms are natural logarithms with base \( \EulerE \).
+
+\defn{Stirling's Formula}, also known as Stirling's Approximation, is the
+asymptotic relation%
+\index{Stirling's Formula}
+\[
+    n!  \asympt \sqrt{2 \PI} n^{n+1/2} \EulerE^{-n}\,.
+\] The formula is useful in estimating large factorial values, but its
+main mathematical value is in limits involving factorials.  Another
+attractive form of Stirling's Formula is:
+\[
+    n!  \asympt \sqrt{2 \PI n } \left( \frac{n}{\EulerE} \right)^n\,.
+\]
+
+An improved inequality version of Stirling's Formula is
+\begin{equation}
+    \sqrt{2 \PI} n^{n+1/2} \EulerE^{-n + 1/(12n+1)} < n!  < \sqrt{2 \PI}
+    n^{n+1/2} \EulerE^{-n + 1/(12n)}\,.%
+    \label{eq:sequences:stirlingsinequality}
+\end{equation}
+\index{Stirling's Formula!inequality version}
+See \link{http://mathworld.wolfram.com/StirlingsApproximation.html}{Stirling's
+Formula} in MathWorld.com.
+
+A consequence of the improved inequality is the simple and useful
+inequality about Stirling's Formula for all \( n \)
+\[
+    \sqrt{2 \PI} n^{n+1/2} \EulerE^{-n} < n!\,.
+\]%
+\index{Stirling's Formula!simple inequality version}
+
+Here we rigorously derive Stirling's Formula using elementary sequences
+and series expansions of the logarithm function, based on the sketch in
+Kazarinoff
+\cite{kazarinoff61}, based on the note by Nanjundiah
+\cite{nanjundiah59}, using motivation and background from the article by
+Hammett
+\cite{hammett20}.
+
+\subsection*{A weak form of Stirling's Formula}
+
+\begin{theorem}
+    \[
+        \sqrt[n]{n!} \asympt \frac{n}{\EulerE}.
+    \]%
+    \label{thm:sequences:weakform}
+\end{theorem}
+\index{Stirling's Formula!weak asymptotic version}
+
+\begin{remark}
+    This form of Stirling's Formula is weaker than the usual form since
+    it does not give direct estimates on \( n! \).  On the other hand,it
+    avoids the determination of the asymptotic constant \( \sqrt{2\PI} \)
+    which usually requires Wallis's Formula or equivalent.  For many
+    purposes of estimation or limit taking this version of Stirling's
+    Formula is enough, and the proof is elementary.  The proof is taken
+    from
+    \cite[pages 314-315]{saks71}.
+\end{remark}
+
+\begin{proof}
+    \begin{enumerate}
+        \item
+            Start from the series expansion for the exponential function
+            and then crudely estimate:
+            \begin{align*}
+              \EulerE^{n}
+              &= 1 + \frac{n}{1!} + \cdots + \frac{n^{n-1}}{(n-1)!} + \\
+              & \qquad  \frac{n^n}{n!}\left( 1 + \frac{n}{n+1} +
+                \frac{n^2}{(n+1)(n+2)} + \dots \right) \\
+                &< n \frac{n^n}{n!} + \frac{n^n}{n!} \sum_{j=0}^{\infty}
+                \left( \frac{n}{n+1} \right)^j \\
+                &= (2n+1) \frac{n^n}{n!}.
+            \end{align*}
+        \item
+            On the other hand, \( \EulerE^n > n^n/n! \) by dropping all
+            but the \( n^n/n! \) term from the series expansion for the
+            exponential.
+        \item
+            Rearranging these two inequalities
+            \[
+                \frac{n^n}{\EulerE^n} < n!  < \frac{(2n+1) n^n}{\EulerE^n}.
+            \]
+        \item
+            Now take the \( n \)th root of each term, and use o \( \sqrt
+            [n]{2n+1} \to 1 \) as \( n \to \infty \).
+    \end{enumerate}
+\end{proof}
+
+\subsection*{Some motivating functions}
+
+The basic calculus fact
+\[
+    \lim_{x \to \infty} \left( 1 + \frac{1}{x} \right)^x = \EulerE
+\] motivates studying the parametrized family of functions
+\[
+    a_{\alpha}(x) = \left( 1 + \frac{1}{x} \right)^{x + \alpha}.
+\] Actually,
+\[
+    \lim_{x \to \infty} \left( 1 + \frac{1}{x} \right)^x = \EulerE
+\] can be proved directly using information about the family of
+functions, without resorting to L'Hospital's Rule.
+
+Graphs of \( a_{\alpha}(x) \) for representative values of \( \alpha \)
+are in Figure~%
+\ref{fig:sequences:aalpha}.  The graph suggests \( a_{\alpha}(x) \) is
+decreasing if \( \alpha > 1/2 \) and eventually increasing for \( \alpha
+< 1/2 \).
+
+\begin{figure}
+    \centering
+\begin{asy}
+settings.outformat = "pdf";
+
+import graph;
+
+size(5inches);
+
+real myfontsize = 12;
+real mylineskip = 1.2*myfontsize;
+pen mypen = fontsize(myfontsize, mylineskip);
+defaultpen(mypen);
+
+real e(real x) {
+  return exp(1);
+}
+
+typedef real anon(real);
+anon f(real alpha) {
+  return new real(real x) {
+    return ( 1 + 1/x)^(x + alpha);
+  };
+}
+
+real[] a = {0.15, 0.35, 0.5, 0.75};
+pen[] col = {red, orange, blue, black};
+real M = 4;
+
+for (int n=0; n < 4; ++n) {
+  draw( graph( f(a[n]), 1, M), col[n]);
+}
+
+draw( graph(e, 1, M), p=green);
+
+xaxis(L="$x$", xmin=0, xmax=M, RightTicks(format="%", N=9));
+yaxis(L="$y$", ymin=0, ymax=4, LeftTicks(format="%", N=5));
+\end{asy}
+    \caption{Graphs of $ y = a_{\alpha}(x) $ for $ \alpha = 0.15 $,
+    red, $ 0.35 $, orange, $ 0.5 $, blue, and $ 0.65 $, black.
+    The green horizontal line is $ y = \EulerE $.}%
+    \label{fig:sequences:aalpha}
+\end{figure}
+
+\begin{lemma}
+    \label{lem:sequences:funcsalpha}
+    \begin{enumerate}
+        \item
+            \( a_{\alpha}(x) \) decreases with \( x \) for \( x > 1\) and any
+            fixed \( \alpha \ge 1/2 \)
+        \item
+            \( a_{\alpha}(x) \)  increases with \( x \) for \( x > \max[1,
+            \frac{1}{3-6\alpha}] \) and any fixed \( \alpha < 1/2 \).
+    \end{enumerate}
+\end{lemma}
+
+\begin{remark}
+    The condition \( x > \max \left[ 1, \frac{1}{3-6\alpha} \right] \)
+    reduces to \( x > 1 \) for \( \alpha \le \frac{1}{3} \) and \( x >
+    1/(3-6\alpha) \) for \( \frac{1}{3} < \alpha < \frac{1}{2} \)
+\end{remark}
+
+\begin{remark}
+    Essentially the same lemma is proved in a different way in Lemma~%
+    \ref{lem:sequences:wallis}.
+\end{remark}
+
+\begin{remark}
+    The results of this lemma are equivalent to a remark due to I.
+    Schur, see
+    \cite{polya98}, problem 168, on page 38 with solution on page 215,
+    and a generalization appears in the \textit{College Mathematics
+    Journal}, September 2020, Problem 1182, so this is frequently
+    rediscovered.
+\end{remark}
+
+\begin{proof}
+    \begin{enumerate}
+        \item
+            Introduce the parametrized family \( g_{\alpha}(x) = \log a_{\alpha}
+            (x) = (x + \alpha) \log(1 + 1/x) \).
+        \item
+            Taking the derivative, rearranging and expanding in series:
+            \begin{align*}
+                g'(x) &= \log(1 + 1/x) + \frac{x+\alpha}{1 + 1/x} \cdot
+                \frac{-1}{x^2} \\
+                &= \left( \frac{1}{x^2 + x} \right) \left( (x^2 + x)
+                \left( \frac{1}{x} - \frac{1/2}{x^2} + \frac{1/3}{x^3} -
+                \cdots \right) - (x + \alpha) \right) \\
+                &= \left( \frac{1}{x^2 + x} \right) \left( (\frac{1}{2}
+                -\alpha) + \sum\limits_{k \ge 2} \frac{(-1)^{k-1}}{x^{k-1}}
+                \right) \\
+                &= \left( \frac{1}{x^2 + x} \right)\psi_c(x)
+            \end{align*}
+            where \( \psi_c(x) = \left( \frac{1}{2} - c \right) + \sum\limits_
+            {k \ge 2} \frac{(-1)^{k-1}}{x^{k-1}} \).
+        \item
+            From the definitions
+            \[
+                \frac{\psi_{\alpha}(x)}{x^2 +x} = g'_{\alpha}(x) = \frac
+                {a_{\alpha(x)}}{a_{\alpha}(x)}
+            \] and \( x^2 + x > 0 \) and \( a_{\alpha}(x) > 0 \), so \(
+            \psi_{\alpha}(x) \), \( g'_{\alpha}(x) \) and \( f_{\alpha}(x)
+            \) all have the same sign. Therefore to prove the theorem it
+            suffices to consider \( \psi_{\alpha}(x) \) in terms of \(
+            \alpha \).
+        \item
+            The absolute ratio of consecutive terms in the alternating
+            series in the definition of \( \psi_{\alpha}(x) \) is
+            \[
+                \frac{ \frac{1}{(k+1)(k+2)} \frac{1}{x^k}}{\frac{1}{k(k+1)}
+                \frac{1}{x^{k-1}}} = \frac{k}{k+2} \left( \frac{1}{x}
+                \right) < 1
+            \] for \( k \ge 2 \) and \( x > 1 \).
+        \item
+            The alternating series has terms that decrease in magnitude
+            and so
+            \[
+                \frac{1}{2} - \alpha - \frac{1}{6x} < \psi_{\alpha}(x) <
+                \frac{1}{2} - \alpha
+            \] for \( x > 1 \) and \( \alpha \ge 1/2 \).
+        \item
+            From the right inequality, \( \psi_{\alpha}(x) < \frac{1}{2}
+            - \alpha \le 0 \) for \( \alpha \le \frac{1}{2} \) and \( x
+            > 1 \).  This means \( a_{\alpha}'(x) < 0 \) for \( \alpha
+            \le \frac{1}{2} \) and \( x > 1 \).  So \( a_{\alpha}(x) \)
+            decreases for \( \alpha \le \frac{1}{2} \) and \( x > 1 \).
+            This proves the first part of the lemma.
+        \item
+            When \( \alpha < \frac{1}{2} \) and \( x > 1 \) we have \(
+            \frac{1}{2} - \alpha - \frac{1}{6x} \) which is equivalent
+            to \( x(3 - 6 \alpha) \) which in turn is equivalent to \( x
+            \ge \frac{1}{3 - 6c} \).
+        \item
+            Then from the left hand inequality,
+            \[
+                \psi_c(x) > \frac{1}{2} - \alpha - \frac{1}{6x} \ge 0
+            \] for \( x > \max[1, \frac{1}{3-6\alpha}] \).
+    \end{enumerate}
+\end{proof}
+
+\begin{corollary}
+    \[
+        \lim_{n \to \infty} \left( 1 + \frac{1}{n} \right)^n = \EulerE.
+    \]
+\end{corollary}
+
+\begin{proof}
+    \begin{enumerate}
+        \item
+            Write \( g_{\alpha}(x) \) as a power series as done for \(
+            g'_{\alpha}(x) \):
+            \begin{align*}
+                g_{\alpha}(x) &= (x + \alpha) \log \left( 1 + \frac{1}{x}
+                \right) \\
+                &= (x + \alpha) \left(\frac{1}{x} - \frac{1/2}{x} + \frac{1/3}
+                {x^3} - \cdots \right) \\
+                &= 1 + \sum\limits_{k \ge 1} \left( \frac{k}{k+1} -c
+                \right) \frac{(-1)^k}{k x^k}
+            \end{align*}
+        \item
+            Now \( \lim_{x \to \infty} g_{\alpha}(x) = 1 \) for all \(
+            \alpha \).
+        \item
+            Then
+            \[
+                \lim_{x \to \infty} \left( 1 + \frac{1}{x} \right)^x =
+                \lim_{n \to \infty}\EulerE^{g_0(n)} = \EulerE.
+            \]
+    \end{enumerate}
+\end{proof}
+
+More is true, namely
+\[
+    \lim_{x \to \infty} \left( 1 + \frac{1}{x} \right)^{x + \alpha} =
+    \lim_{n \to \infty}\EulerE^{g_\alpha(n)} = \EulerE
+\] and what is more, the lemma says exactly how members of the
+parametrized family approach \( \EulerE \),
+\[
+    \left( 1 + \frac{1}{n} \right)^{n + \alpha_1} < \EulerE < \left( 1 +
+    \frac{1}{n} \right)^{n + \alpha_2}
+\] for \( \alpha_1 < 1/2 \) and \( \alpha_2 \ge 1/2 \) and \( n \)
+sufficiently large.
+
+Now separately derive some equivalent formulations of these
+inequalities.  First for \( \alpha_1 < 1/2 \), the following are
+equivalent
+\begin{align*}
+    \EulerE &> \left( 1 + \frac{1}{n} \right)^{n + \alpha_1} \\
+    \EulerE \left(\frac{n}{n+1} \right)^{n + \alpha_1} > 1\\
+    \frac{\EulerE^{n+1}}{(n+1)^n (n+1)^\alpha_1} > \frac{\EulerE^n}{n^n
+    n^\alpha_1} \\
+    \frac{(n+1)!}{(n+1)^\alpha_1} \left( \frac{\EulerE}{n+1} \right)^{n+1}
+    &> \frac{n!}{n^\alpha_1}\left( \frac{\EulerE}{n} \right)^n
+\end{align*}
+
+Similarly
+\[
+    \frac{(n+1)!}{(n+1)^\alpha_2} \left( \frac{\EulerE}{n+1} \right)^{n+1}
+    < \frac{n!}{n^\alpha_2}\left( \frac{\EulerE}{n} \right)^n.
+\]
+
+Introducing the parametrized family of sequences
+\[
+    \frac{n}{n^\alpha}\left( \frac{\EulerE}{n} \right)^n,
+\] the sequence increases with \( n \) for \( \alpha < 1/2 \) and \( n >
+\max[1, 1/(3-6 \alpha)] \) and the sequence decreases with \( n \) for \(
+\alpha \ge 1/2 \) and \( n > 1 \).  For fixed \( n \), the sequence is a
+decreasing function of \( \alpha \).
+
+By monotonicity, the sequences
+\[
+    \frac{n!}{n^\alpha}\left( \frac{\EulerE}{n} \right)^n,
+\] must approach \( 0 \), \( \infty \), or some finite \( L \) as \( n
+\to \infty \).  If \( \alpha < 1/2 \), the sequence is increasing and so
+the limit must be either \( \infty \) or \( L \).  If some \( \alpha_0 <
+1/2 \) the limit is \( L < \infty \), then for fixed \( \beta \in (\alpha_0,
+1/2) \),
+\begin{multline*}
+    \lim_{n \to \infty}\frac{n!}{n^\beta}\left( \frac{\EulerE}{n} \right)^n
+    = \lim_{n \to \infty} \frac{n^{\alpha_0}}{n^{\beta}}\frac{n!}{n^\alpha_0}\left
+    ( \frac{\EulerE}{n} \right)^n = \\
+    \lim_{n \to \infty} \frac{n^{\alpha_0}}{n^{\beta}} \cdot \lim_{n \to
+    \infty}\frac{n!}{n^\alpha_0}\left( \frac{\EulerE}{n} \right)^n = 0
+    \cdot L = 0
+\end{multline*}
+which is not possible, so the limit must be \( \infty \) for all \(
+\alpha < 1/2 \).
+
+Similarly, if \( \alpha > 1/2 \), the sequence is decreasing to a limit
+of \( 0 \), see the exercises.
+
+This leaves just \( \alpha =1/2 \) the only possible member of the
+family of sequences that could approach a finite limit as \( n \to
+\infty \). The goal is now to show this finite limit exists.
+
+\subsection*{Stirling's Formula from sequences and series}
+
+Rearranging slightly, let \( a_n = \frac{n!} {n^{n+1/2}\EulerE^{-n}} \)\,.
+Then \( \frac{a_n}{a_{n+1}} = \left(\frac{n+1}{n} \right)^{n + 1/2}\EulerE^
+{-1} \) and \( \log \left( \frac{a_n}{a_{n+1}} \right) = (n+1/2) \log( 1
++ 1/n) - 1 \)\,.
+
+\begin{lemma}
+    For \( |x| < 1 \),
+    \[
+        \log\left( \frac{1+x}{1-x} \right) = 2 \sum_{k=0}^{\infty} \frac
+        {1}{(2k+1)x^{2k+1} }\,.
+    \]%
+    \label{lem:sequences:lemma1}
+\end{lemma}
+
+\begin{proof}
+    Left as an exercise.
+\end{proof}
+
+Note then that
+\[
+    \log\left( 1 + \frac{1}{n} \right) = \log\left( \frac{ 1 + \frac{1}{2n+1}}
+    {1 - \frac{1}{2n+1}} \right) = 2 \sum_{k=0}^{\infty} \frac{1}{(2k+1)
+    (2n+1)^{2k+1}}\,.
+\] Then
+\begin{align*}
+    \log \left(\frac{a_n}{a_{n+1}} \right) &= \left(\frac{2n+1}{2}
+    \right) \left(2 \sum_{k=0}^{\infty} \frac{1}{(2k+1)(2n+1)^{2k+1}}
+    \right) -1 \\
+    &= \sum_{k=1}^{\infty} \frac{1}{(2k+1)(2n+1)^{2k}} = \sum_{k=0}^{\infty}
+    \frac{1}{(2k+3)(2n+1)^{2k+2}}\,.
+\end{align*}
+Now coarsely estimating the denominators
+\[
+    \log \left(\frac{a_n}{a_{n+1}} \right) \le \frac{1}{2(2n+1)^2} \sum_
+    {k=0}^ {\infty} \frac{1}{(2n+1)^{2k}}\,.
+\]
+
+\begin{lemma}
+    \[
+        \log(a_{n+1} ) < \log \left(a_n \right) < \frac{1}{12n} - \frac{1}
+        {12(n+1)} + \log(a_{n+1} ).
+    \]%
+    \label{lem:sequences:lemma2}
+\end{lemma}
+
+\begin{proof}
+    \begin{enumerate}
+        \item
+            Let \( f(x) = (x + 1/2)\log(1 + 1/x) - 1 \), so \( \log
+            \left( \frac {a_n}{a_{n+1}} \right) = f(n) \).
+        \item
+            An exercise proves \( f(x) \to 0 \) as \( x \to \infty \).
+        \item
+            Also \( f'(x) = \log(1 + 1/x) - \frac{2x + 1}{2x^2 + 2x} \).
+        \item
+            Because \( f'(x) < 0 \) for \( x > 1 \) (proof left as an
+            exercise) \( f(x) \) is decreasing from \( (3/2)\log(2) - 1
+            \approx 0.0397 \) to \( 0 \) as \( x \) increases.
+        \item
+            Hence \( 0 < \log \left(\frac {a_n}{a_{n+1}} \right) \).
+        \item
+            By Lemma~%
+            \ref{lem:sequences:lemma1}
+            \[
+                \log \left(\frac{a_n}{a_{n+1}} \right) \le \frac{1}{3(2n+1)^2}
+                \sum_{k=0}^{\infty} \frac{1}{(2n+1)^{2k}}\,.
+            \]
+        \item
+            The sum is a geometric sum, so
+            \[
+                0 < \log \left(\frac{a_n}{a_{n+1}} \right) < \frac{1}{3(2n+1)^2}
+                \frac{1}{1 - (1/(2n+1)^2)} = \frac{1}{12n(n+1)}.
+            \]
+        \item
+            Expand \( 1/(12n(n+1)) \) in partial fractions and add \(
+            \log(a_{n+1}) \) throughout to get
+            \[
+                \log(a_{n+1} ) < \log(a_n ) < \frac{1}{12n} - \frac{1}{12
+                (n+1)} + \log(a_{n+1} ).
+            \]
+    \end{enumerate}
+\end{proof}
+
+Define \( x_n = \log(a_{n} ) - \frac{1}{12n} \), so Lemma~%
+\ref{lem:sequences:lemma2} shows that \( x_n \) is an increasing
+sequence
+\begin{equation}
+    x_n = \log(a_n) -\frac{1}{12n} < \log(a_{n+1}) - \frac{1}{12(n+1)} =
+    x_{n+1}.%
+    \label{eq:sequences:inequality}
+\end{equation}
+Define \( y_n = \log(a_n) \), and then the left-side inequality in
+Lemma~%
+\ref{lem:sequences:lemma2} shows that \( y_{n} \) is a decreasing
+sequence that is, \( y_{n+1} < y_n \).  By the definition of \( x_n \)
+and \( y_n \), \( x_n < y_n \) and \( |x_n - y_n| = 1/(12n) \), so \( |x_n
+- y_n| \to 0 \) as \( n \to \infty \).  Therefore \( \sup x_{n}= \inf y_
+{n} \) and call the common value \( \lambda \).  By continuity, \( \lim_
+{n \to \infty} a_{n} = \EulerE^\lambda \).
+
+Using elementary properties of limits
+\begin{equation}
+    \EulerE^\lambda = \lim_{n \to \infty} a_{n} = \frac{\left(\lim_{n
+    \to \infty} a_{n} \right)^2 }{\lim_{n \to \infty} a_{2n} } = \lim_{n
+    \to \infty} \frac{\left(a_{n} \right)^2}{a_{2n}}\,.%
+    \label{eq:sequences:limit}
+\end{equation}
+However,
+\begin{equation}
+    \frac{\left(a_{n} \right)^2}{a_{2n}} = \sqrt{\left(\frac{2}{n}
+    \right) } \frac{2 \cdot 4 \dots (2n-2) \cdot 2n}{1 \cdot 3 \dots (2n-3)
+    \cdot (2n-1)} \,.%
+    \label{eq:sequences:wallis}
+\end{equation}
+The demonstration is left as an exercise.
+
+\begin{lemma}[Wallis' Formula]
+    \[
+        \lim_{n \to \infty}\left(\frac{(2n)\cdot(2n)\dots 2 \cdot 2}{(2n+1)
+        \cdot (2n-1) \cdot (2n-1) \dots 3 \cdot 3 \cdot 1} \right) =
+        \frac{\PI}{2}.
+    \]
+\end{lemma}
+\index{Wallis Formula}
+
+\begin{proof}
+    See the proofs in \link{../WallisFormula/wallisformula.xml}{Wallis
+    Formula}.
+\end{proof}
+
+Using the continuity of the square root function
+\[
+    \lim_{n \to \infty}\left(\sqrt{ \frac{1}{2n+1} } \right) \left(\frac
+    {(2n)\cdot(2n-2)\dots 4 \cdot 2}{ (2n-1) \cdot (2n-3) \dots 5 \cdot
+    3 \cdot 1} \right) = \sqrt{ \frac{\PI}{2} }\,.
+\]
+
+Now multiplying both sides by \( 2 \) and rewriting the leading square
+root sequence, get
+\[
+    \lim_{n \to \infty}\left(\sqrt{ \frac{2}{n} \, \frac{2n}{2n+1} }
+    \right) \left(\frac{(2n)\cdot(2n-2)\dots 4 \cdot 2}{ (2n-1) \cdot (2n-3)
+    \dots 5 \cdot 3 \cdot 1} \right) = \sqrt{ 2 \PI }\,.
+\] Then since
+\[
+    \lim_{n \to \infty} \sqrt{ \frac{2n}{2n+1} } = 1,
+\] equation~%
+\ref{eq:sequences:wallis} is
+\[
+    \EulerE^\lambda = \lim_{n \to \infty} a_{n} = \sqrt{ \left(\frac{2}{n}
+    \right) } \frac{ 2 \cdot 4 \dots (2n-2) \cdot 2n }{ 1 \cdot 3 \dots
+    (2n-3) \cdot (2n-1) } = \sqrt{ 2 \PI } \,.
+\] Equivalently, unwrapping the definition of \( a_{n} = \frac{n!}{n^{n+1/2}\EulerE^
+{-n}} \) this is exactly Stirling's Formula
+\[
+    n!  \asympt \sqrt{2 \PI} n^{n+1/2} \EulerE^{-n}\,.
+\]
+
+Using the definitions \( x_n = \log(a_{n} ) - \frac{1}{12n} \) and \( y_n
+= \log(a_n) \), the inequality \( x_n < y_n \), and the least upper
+bound and greatest lower bound limit in equation~(%
+\ref{eq:sequences:limit}) we can express Stirling's Formula in
+inequality form
+\[
+    \sqrt{2 \PI} n^{n+1/2} \EulerE^{-n} < n!  < \sqrt{2 \PI} n^{n+1/2}
+    \EulerE^{-n + 1/(12n)}\,.
+\] This is almost as good as the inequality~(%
+\ref{eq:sequences:stirlingsinequality}).  This also gives a proof of the
+simple and useful inequality about Stirling's Formula, for all \( n \)
+\[
+    \sqrt{2 \PI} n^{n+1/2} \EulerE^{-n} < n!\,.
+\]
+
+\begin{remark}
+    This proof of Stirling's Formula and the inequality~(%
+    \ref{eq:sequences:stirlingsinequality}) is the easiest, the shortest
+    and the most elementary of the Stirling's Formula proofs.  These are
+    all definite advantages.  The main disadvantage of this proof is
+    that it requires the form of Stirling's Formula.  However, this form
+    follows from investigation of a natural family of functions
+    motivated by the definition of Euler's constant, the base of the
+    natural logarithms.
+\end{remark}
+
+\subsection*{Stirling's Formula from Wallis' Formula}
+
+\begin{lemma}
+    \label{lem:sequences:wallis} For \( \alpha \in \Reals \), the
+    sequence
+    \[
+        a_{\alpha}(n) = \left( 1 + \frac{1}{n} \right)^{n + \alpha}
+    \] is decreasing if \( \alpha \in [ \frac{1}{2}, \infty ) \), and
+    increasing for \( n \ge N(\alpha) \) if \( \alpha \in (-\infty,
+    \frac{1}{2} ) \).
+\end{lemma}
+
+\begin{remark}
+    An illustration of representative sequences with \( \alpha = 1 \) (green)
+    and \( \alpha = 0 \) (red) is in Figure~%
+    \ref{fig:sequences:lemma}.
+\end{remark}
+
+\begin{figure}
+  \centering
+  \begin{asy}
+settings.outformat = "pdf";
+
+import graph;
+
+size(5inches);
+
+real myfontsize = 12;
+real mylineskip = 1.2*myfontsize;
+pen mypen = fontsize(myfontsize, mylineskip);
+defaultpen(mypen);
+
+real M = 10;
+
+for (int i=1; i<11; ++i) {
+  dot( (i, (1 + 1/i)^(i + 1 ) ), green);
+  dot( (i, (1 + 1/i)^(i) ), red);
+}
+
+xaxis(L="$x$", xmin=0, xmax=M, RightTicks(format="%", N=10));
+yaxis(L="$y$", ymin=0, ymax=4, LeftTicks(format="%", N=4));
+\end{asy}
+    %% \includegraphics{lemma_illustration}
+    \caption{Example of the lemma with $ \alpha = 1 $ (green) and $
+    \alpha = 0 $ (red).  }%
+    \label{fig:sequences:lemma}
+\end{figure}
+
+\begin{remark}
+    This lemma is based on a remark due to I. Schur, see
+    \cite{polya98}, problem 168, on page 38 with solution on page 215.
+\end{remark}
+
+\begin{proof}
+    \begin{enumerate}
+        \item
+            The derivative of the function \( f(x) = \left( 1 + \frac{1}
+            {x} \right)^{x + \alpha} \) (defined on \( [1, \infty) \))
+            is
+            \[
+                f'(x) = \left( 1 + \frac{1}{x} \right)^{x + \alpha}
+                \left( \log\left( 1 + \frac{1}{x} \right) - \frac{x+\alpha}
+                {x(x+1)} \right).
+            \]
+        \item
+            Let
+            \[
+                g(x) = \left( \log\left( 1 + \frac{1}{x} \right) - \frac{x+\alpha}
+                {x(x+1)} \right)
+            \] then
+            \[
+                g'(x) = \frac{(2\alpha -1) x + \alpha}{x^2(x+1)^2}
+            \] and \( \lim_{x \to \infty} g(x) = 0 \).
+        \item
+            It follows that \( g(x) < 0 \) and so \( f'(x) < 0 \) when \(
+            \alpha \ge 1/2 \) and \( x \ge 1 \), and \( f'(x) > 0 \)
+            when \( \alpha < 1/2 \) and \( x \ge \max(1, \frac{\alpha}{1
+            - 2\alpha} ) \).  The monotonicity of \( a_{\alpha}(n) \)
+            follows.
+    \end{enumerate}
+\end{proof}
+
+From the lemma, for every \( \alpha \in (0, 1/2) \) there is a positive
+integer \( N(\alpha) \) such that
+\[
+    \left( 1 + \frac{1}{k} \right)^{k + \alpha} < \EulerE < \left( 1 +
+    \frac{1}{k} \right)^{k + 1/2}
+\] for all \( k \ge N(\alpha) \).  As a consequence, we get
+\[
+    \prod_{k=n}^{2n-1} \left( 1 + \frac{1}{k} \right)^{k + \alpha} <
+    \EulerE^n < \prod_{k=n}^{2n-1} \left( 1 + \frac{1}{k} \right)^{k +
+    1/2}.
+\]
+
+Rearrange the products with telescoping cancellations, using the upper
+bound on the right as an example.
+\begin{align*}
+    & \prod_{k=n}^{2n-1} \left( 1 + \frac{1}{k} \right)^{k + 1/2} \\
+    &\qquad = \left( 1 + \frac{1}{n} \right)^{n + 1/2} \left( 1 + \frac{1}
+    {n+1} \right)^{n+1 + 1/2} \cdots \left( 1 + \frac{1}{2n-1} \right)^{2n-1
+    + 1/2} \\
+    &\qquad = \left(\frac{n+1}{n} \right)^{n + 1/2} \left(\frac{n+2}{n+1}
+    \right)^{n+1 + 1/2} \cdots \left(\frac{2n}{2n-1} \right)^{2n-1 + 1/2}
+    \\
+    &\qquad = \left(\frac{n+1}{n} \right)^{1/2} \left(\frac{n+2}{n+1}
+      \right)^{1/2} \cdots \left(\frac{2n}{2n-1} \right)^{1/2} \cdot \\
+    & \qquad \qquad \left
+    ( \frac{n+1}{n} \right)^{n} \left(\frac{n+2}{n+1} \right)^{n+1}
+    \cdots \left(\frac{2n}{2n-1} \right)^{2n-1} \\
+    &\qquad = \left( \frac{2n}{n} \right)^{1/2} \cdot \left( \frac{ (2n)^
+    {2n-1}}{n^n \cdot (n+1) \cdots (2n-1)} \right) \\
+    &\qquad = 2^{1/2} \cdot \frac{ (2n)^{2n-1}}{n^n \cdot (n+1) \cdots (2n-1)}
+    \\
+    &\qquad = 2^{1/2} \cdot \frac{ 2^{2n-1} \cdot n^{n-1}}{ (n+1) \cdots
+    (2n-1)}.
+\end{align*}
+Multiply by the last fraction by \( n!/n^n \) and Write more compactly,
+\begin{align*}
+    & \frac{ n!}{ n^n } \cdot 2^{1/2} \cdot \left( \frac{ 2^{2n-1} \cdot
+    n^{n-1}}{ (n+1) \cdots (2n-1)} \right).  \\
+    & \qquad = 2^{1/2} \cdot \frac{ 2^{n-1} \cdot 2^n \cdot n!}{n \cdot
+    (n+1) \cdots (2n-1) } \\
+    & \qquad = 2^{1/2} \cdot \frac{(2n)!!}{(2n-1)!!}.
+\end{align*}
+This uses the \defn{double factorial} notation \( n!!  = n \cdot (n-2)
+\cdots 4 \cdot 2 \) if \( n \) is even, and \( n!!  = n \cdot (n-2)
+\cdots 3 \cdot 1 \) if \( n \) is odd.%
+\index{double factorial}
+The lower bound product on the left is similar.
+
+After multiplying through by \( n!/n^{n+1/2} \),
+\[
+    \frac{2^\alpha}{\sqrt{n}} \cdot \frac{ (2n)!!}{(2n-1)!!} < \frac{n!
+    \EulerE^n}{n^{n+1/2}} < \frac{2^{1/2}}{\sqrt{n}} \cdot \frac{(2n)!!}
+    {(2n-1)!!}
+\] for all \( n \ge N(\alpha) \).  Using the Wallis Formula,%
+\index{Wallis Formula}
+\[
+    2^\alpha \sqrt{\PI} \le \liminf_{n \to \infty} \frac{n!  \EulerE^n}{n^
+    {n+1/2}} \le \limsup_{n \to \infty} \frac{n!  \EulerE^n}{n^{n+1/2}}
+    \le \sqrt{2\PI}.
+\] Stirling's formula follows by passing to the limit as \( \alpha \to
+1/2 \).
+
+\begin{remark}
+    This proof generalizes to an asymptotic formula for the Gamma
+    function using log-convexity of the Gamma function.  See
+    \cite{dutkay13}.
+\end{remark}
+
+\subsection*{Related Asymptotic Formulas for Binomial Coefficients}
+
+\begin{theorem}
+    \[
+        \left( \frac{n}{k} \right)^k \le \binom{n}{k} \le \left( \frac{\EulerE
+        n}{k} \right)^k
+    \]
+\end{theorem}
+\index{binomial coefficients!inequalities}
+
+\begin{proof}
+    \begin{enumerate}
+        \item
+            Start with
+            \[
+                \binom{n}{k} = \frac{n(n-1) \cdots (n-k+2)(n-k+1)}{k(k-1)\cdots
+                2 \cdot 1}.
+            \]
+        \item
+            Since
+            \[
+                \frac{n}{k} \le \frac{n-i}{k-i}
+            \] for all \( i = 0, 1, \dots k-1 \), the left inequality is
+            immediate.
+        \item
+            Since
+            \[
+                \binom{n}{k} = \frac{n(n-1) \cdots (n-k+2)(n-k+1)}{k(k-1)\cdots
+                2 \cdot 1} \le \frac{n^k}{k!}
+            \] and by a step in the proof of Theorem~%
+            \ref{thm:sequences:weakform}
+            \[
+                \frac{1}{k!} \le \left( \frac{e}{k} \right)^{k}
+            \] the right inequality follows.
+    \end{enumerate}
+\end{proof}
+
+\begin{theorem}
+    \[
+        \binom{n}{k} \asympt \left(\frac{n^k}{k!} \right)
+    \] if \( k = o(n^{1/2}) \) as \( n \to \infty \).
+\end{theorem}
+\index{binomial coefficients!asymptotics}
+
+\begin{proof}
+    \begin{enumerate}
+        \item
+            The statement of the theorem is equivalent to showing
+            \[
+                \lim_{n \to \infty}\frac{n(n-1) \cdots (n-k+1)}{n^k} =
+                \lim_{n \to \infty} \prod_{j=1}^{k-1}\left( 1 - j/n
+                \right) = 1
+            \] if \( k = o(n^{1/2}) \).
+        \item
+            In turn, this is equivalent to showing
+            \[
+                \lim_{n \to \infty} \log \left( \prod_{j=1}^{k-1} \left(
+                1 - j/n \right) \right) = \lim_{n \to \infty} \sum_{j=1}^
+                {k-1} \log \left( 1 - j/n \right) = 0.
+            \]
+        \item
+            Using \( \log(1-x) = x + O(x^2) \), the sum is
+            \[
+                \sum_{j=1}^{k-1} \log \left( 1 - j/n \right) = \sum_{j=1}^
+                {k-1} \left( j/n + O(j^2/n^2) \right) = \frac{k(k-1)}{n}
+                + \frac{1}{n^2} O(k^3).
+            \]
+        \item
+            Now the hypothesis \( k = o(n^{1/2}) \) comes into play so \(
+            \lim_{n \to \infty }\frac{k(k-1)}{n} = 0 \) and \( \lim_{n
+            \to \infty } \frac{1}{n^2} O(k^3) = 0 \) establishing the
+            desired limit.
+    \end{enumerate}
+\end{proof}
+
+\visual{Section Starter Question}{../../../../CommonInformation/Lessons/question_mark.png}
+\section*{Section Ending Answer}
+
+The geometric summation formula is
+\[
+    \frac{1}{1-x} = \sum\limits_{k=0}^{\infty} x^k
+\] which converges uniformly for \( \abs{x} < 1 \).  Then
+\[
+    \frac{1}{1+x} = \sum\limits_{k=0}^{\infty} (-1)^{k}x^k
+\] and
+\[
+    \log(1 + x) = \int\limits_{0}^{x} \frac{1}{1 + t} \df{t} = \sum\limits_
+    {k=0}^{\infty} (-1)^k \frac{x^{k+1}}{k+1}
+\] where the term-by-term integration is justified by the uniform
+convergence for \( \abs{x} < 1 \).
+
+\subsection*{Sources}
+
+The weak form of Stirling's Formula is taken from
+\cite{saks71}.  The motivating derivation of the sequences from the
+family of functions is from
+\cite{hammett20}.  The first sequence proof is adapted from the sketch
+in Kazarinoff
+\cite{kazarinoff61} based on the note by Nanjundiah
+\cite{nanjundiah59}.  The second sequence proof using derivatives and
+monotonicity is adapted from
+\cite{dutkay13}.  The binomial coefficient limits are from lecture notes
+by Xavier Perez Gimenez.
+
+\hr
+
+\visual{Problems to Work}{../../../../CommonInformation/Lessons/solveproblems.png}
+\section*{Problems to Work for Understanding}
+
+\renewcommand{\theexerciseseries}{}
+\renewcommand{\theexercise}{\arabic{exercise}}
+
+\begin{exercise}
+    Show \( \sqrt[n]{2n+1} \to 1 \) as \( n \to \infty \).
+\end{exercise}
+\begin{solution}
+    Take logarithms and consider \( \log(2n+1)/n \) which
+    approaches \( 0 \) as \( n \to 0 \).  Then \( \sqrt[n]{2n+1}
+    \to \EulerE^0 = 1 \) as \( n \to \infty \).
+\end{solution}
+\begin{exercise}
+    Show for \( |x| < 1 \),
+    \[
+        \log\left(\frac{1+x}{1-x} \right) = 2 \sum_{k=0}^{\infty}
+        \frac{1}{(2k+1)x^{2k+1} }\,.
+    \]
+\end{exercise}
+\begin{solution}
+    \begin{align*}
+        \log\left(\frac{1+x}{1-x} \right) &= \log(1+x) - \log(1-x)\\
+        = \sum_{k=0}^{\infty}\frac{(-1)^k x^{k+1} }{k+1} - \sum_
+        {k=0}^{\infty}\frac{x^{k+1}}{(2k+1) }\\
+        = -2 \sum{k=1,3,5,\dots} \frac{x^{k+1}}{k }\\
+        = -2 \sum_{k=0}^{\infty} \frac{x^{2k+1}}{(2k+1) }\,.
+    \end{align*}
+\end{solution}
+\begin{exercise}
+Show that if \( \alpha > 1/2 \)
+\[
+    \lim_{n \to \infty}\frac{n!}{n^\alpha}\left( \frac{\EulerE}{n}
+    \right)^n = 0.
+  \]
+\end{exercise}      
+\begin{solution}
+    If \( \alpha > 1/2 \), the sequence is positive and
+    decreasing and so the limit must be either \( 0 \) or \( L
+    >0 \).  If for some \( \alpha_0 > 1/2 \) the limit is \( L <
+    0 \), then for fixed \( \beta \in (1/2, \alpha_0) \),
+    \begin{multline*}
+        \lim_{n \to \infty}\frac{n!}{n^\beta}\left( \frac{\EulerE}
+        {n} \right)^n = \lim_{n \to \infty} \frac{n^{\alpha_0}}{n^
+        {\beta}}\frac{n!}{n^\alpha_0}\left( \frac{\EulerE}{n}
+        \right)^n = \\
+        \lim_{n \to \infty} \frac{n^{\alpha_0}}{n^{\beta}} \cdot
+        \lim_{n \to \infty}\frac{n!}{n^\alpha_0}\left( \frac{\EulerE}
+        {n} \right)^n = \infty \cdot L = \infty
+    \end{multline*}
+    which is not possible, so the limit must be \( 0 \) for all \(
+    \alpha > 1/2 \).
+\end{solution}
+\begin{exercise}
+    Let \( f(x) = (x + 1/2)\log(1 + 1/x) - 1 \).  Show \( f(x) \)
+    decreases to \( 0 \) as \( x \to \infty \).
+\end{exercise}
+\begin{solution}
+    This is essentially the content of steps \( 1 \) through \(
+    6 \) of Lemma~%
+    \ref{lem:sequences:funcsalpha}.  Using the notation in the
+    proof in step \( 6 \)
+    \[
+        f'(x) = a_{1/2}'(x) = - \frac{1}{6x} < \psi_{\alpha}(x)
+        < 0.
+    \] Using, for instance L'Hospital's rule, \( \lim_{x \to
+    \infty}(x + 1/2)\log(1 + 1/x) = 1 \), or expanding as a
+    power series in terms of \( 1/x \)
+    \[
+        (x + 1/2)\log(1 + 1/x) = 1 + \frac{1}{12 y^2} - \frac{1}
+        {12 y^3} + \dots
+    \] so \( \lim_{x \to \infty}(x + 1/2)\log(1 + 1/x) = 1 \).
+\end{solution}
+\begin{exercise}
+    Show
+    \[
+        \frac{ \left(a_{n} \right)^2 }{ a_{2n} } = \sqrt{ \left(\frac
+        {2}{n} \right) } \frac{ 2 \cdot 4 \dots (2n-2) \cdot 2n
+        }{ 1 \cdot 3 \dots (2n-3) \cdot (2n-1) } \,.
+    \]
+\end{exercise}
+\begin{solution}
+    Recall \( a_n = \frac{n!} {n^{n+1/2}\EulerE^{-n}} \) so \( (a_n)^2
+    = \frac{n!  \cdot n!} {n^{2n+1}\EulerE^{-2n}} \).  Also \( a_
+    {2n} = \frac{(2n)!} {(2n)^{2n+1/2}\EulerE^{-2n}} \). Then
+    \begin{align*}
+        \frac{ \left(a_{n} \right)^2 }{ a_{2n} } &= \left( \frac
+        {n! \cdot n!}{(2n)!} \right) \frac{2^{2n} 2^{1/2} n^{2n}
+        n^{1/2}}{n^{2n} n} \\
+        &= \sqrt{\frac{2}{n}} \left( \frac{n!\cdot n!}{(2n)!}
+        \right) 2^{2n} \\
+        &= \sqrt{\frac{2}{n}} \left( \frac{n!}{1 \cdot 3 \cdots (2n-3)
+        \cdot (2n-1)} 2^{n} \right)\\
+        &= \sqrt{\left(\frac{2}{n} \right) } \frac{2 \cdot 4
+        \cdots (2n-2) \cdot (2n)}{1 \cdot 3 \cdots (2n-3) \cdot
+        (2n-1)} \,.
+    \end{align*}
+\end{solution}
+\begin{exercise}
+    Show the derivative of the function \( f(x) = \left( 1 +
+    \frac{1}{x} \right) ^{x + \alpha} \) (defined on \( [1,
+    \infty) \)) is
+    \[
+        f'(x) = \left( 1 + \frac{1}{x} \right)^{x + \alpha}
+        \left( \log\left( 1 + \frac{1}{x} \right) - \frac{x+\alpha}
+        {x(x+1)} \right).
+    \]
+\end{exercise}
+\begin{solution}
+    Consider \( \log(f(x)) = (x + \alpha) \log(1 + 1/x) \) so
+    \begin{align*}
+        \left[ \log(f(x)) \right]' &= \frac{f'(x)}{f(x)} \\
+        &= \log\left( 1 + \frac{1}{x} \right) + (x+\alpha) \cdot
+        \frac{x}{x+1} \cdot \frac{-1}{x^2} \\
+        & \log\left( 1 + \frac{1}{x} \right) _{} (x+\alpha) \cdot
+        \frac{-1}{x(x+1)}.
+    \end{align*}
+    Then
+    \[
+        f'(x) = \left( 1 + \frac{1}{x} \right)^{x + \alpha}
+        \left( \log\left( 1 + \frac{1}{x} \right) - \frac{x+\alpha}
+        {x(x+1)} \right).
+    \]
+\end{solution}
+
+\hr
+
+\visual{Books}{../../../../CommonInformation/Lessons/books.png}
+\section*{Reading Suggestion:}
+
+\bibliography{../../../../CommonInformation/bibliography}
+
+%   \begin{enumerate}
+%     \item
+%     \item
+%     \item
+%   \end{enumerate}
+
+\hr
+
+\visual{Links}{../../../../CommonInformation/Lessons/chainlink.png}
+\section*{Outside Readings and Links:} % \begin{enumerate}
+%   \item
+%   \item
+%   \item
+%   \item
+% \end{enumerate}
+
+\section*{\solutionsname}
+\loadSolutions
+
+\hr
+
+\mydisclaim \myfooter
+
+Last modified:  \flastmod
+
+\end{document}
+
+File name                  : sequences_new.tex
+Number of characters       : 35425
+Number of words            : 3277
+Percent of complex words   : 15.01
+Average syllables per word : 1.6729
+Number of sentences        : 83
+Average words per sentence : 39.4819
+Number of text lines       : 817
+Number of blank lines      : 207
+Number of paragraphs       : 197
+
+
+READABILITY INDICES
+
+Fog                        : 21.7983
+Flesch                     : 25.2359
+Flesch-Kincaid             : 19.5478
+
+
+
+
+
+%%% Local Variables:
+%%% TeX-master: t
+%%% End:
